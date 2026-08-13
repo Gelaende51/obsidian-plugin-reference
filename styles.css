@@ -1,0 +1,60 @@
+/* Prefixed with the plugin id, because this is styling inside someone else's
+   app and a bare class name is a collision waiting for a theme to cause it. */
+
+.note-stats-status {
+	display: flex;
+	align-items: center;
+	gap: var(--size-2-2);
+}
+
+/* Obsidian sizes its own status bar icons through this variable; matching it
+   is what makes a plugin's icon look native rather than nearly native. */
+.note-stats-status-icon > svg {
+	width: var(--icon-xs);
+	height: var(--icon-xs);
+}
+
+.note-stats-hidden {
+	display: none;
+}
+
+/* Qualified with .view-content, not written bare. Obsidian styles its own
+   content element at (0,2,0) through `.workspace-leaf-content .view-content`;
+   a bare `.note-stats-panel` is (0,1,0) and loses silently — the clashing
+   declarations never apply while the rest do, so it looks half-styled and
+   reads as a layout bug rather than a cascade one. */
+.view-content.note-stats-panel {
+	padding: var(--size-4-3);
+}
+
+.note-stats-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.note-stats-row {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: var(--size-4-2);
+	padding: var(--size-2-1) 0;
+}
+
+.note-stats-name {
+	cursor: pointer;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.note-stats-count {
+	color: var(--text-muted);
+	font-size: var(--font-smaller);
+	font-variant-numeric: tabular-nums;
+	flex-shrink: 0;
+}
+
+.note-stats-empty {
+	color: var(--text-muted);
+}

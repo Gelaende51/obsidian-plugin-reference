@@ -1,0 +1,33 @@
+{
+	"name": "note-stats",
+	"version": "0.1.0",
+	"description": "Counts words in the active note, and lists the vault's longest notes in a side panel.",
+	"main": "main.js",
+	"scripts": {
+		"dev": "node esbuild.config.mjs",
+		"build": "tsc -noEmit -skipLibCheck && npm run lint && npm run check:lang && npm run test && node esbuild.config.mjs production",
+		"test": "node .dev/test-word-count.mjs",
+		"test:live": "node .dev/test-panel.mjs && node .dev/test-harness.mjs",
+		"lint": "eslint src",
+		"check:lang": "node scripts/check-translations.mjs",
+		"check:minapp": "node scripts/check-minapp.mjs",
+		"check:docs": "node scripts/check-links.mjs && node scripts/check-docs-shape.mjs",
+		"newlocale": "node scripts/newlocale.mjs",
+		"stamp": "node scripts/i18n-stamp.mjs",
+		"labels": "node scripts/obsidian-labels.mjs",
+		"preflight": "bash scripts/preflight.sh",
+		"release": "node scripts/release.mjs",
+		"release:review": "node scripts/release-review.mjs",
+		"publish": "node scripts/publish.mjs"
+	},
+	"license": "AGPL-3.0-only",
+	"devDependencies": {
+		"esbuild": "^0.25.0",
+		"eslint": "^9.39.0",
+		"eslint-plugin-obsidianmd": "^0.4.1",
+		"obsidian": "latest",
+		"tslib": "^2.6.0",
+		"typescript": "^5.4.0",
+		"typescript-eslint": "^8.67.0"
+	}
+}

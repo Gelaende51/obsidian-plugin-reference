@@ -1,0 +1,52 @@
+# This repository is the template's integration test.
+#
+# The scripts and harness here are copies of the template's. A copy with no
+# users rots quietly — the whole risk of keeping a reference plugin around. So
+# CI diffs them against the template and fails when they drift, which turns
+# "the reference still works" from a hope into a check.
+#
+# A failure here means one of two things, and both want a human:
+#   - the template moved on and this repository should be updated, or
+#   - this repository fixed something the template still has wrong.
+name: Template drift
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+  schedule:
+    # The template can change without anything happening here, so time is the
+    # only trigger that catches that direction of drift.
+    - cron: "0 6 * * 1"
+
+permissions:
+  contents: read
+
+jobs:
+  drift:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: reference
+
+      - uses: actions/checkout@v4
+        with:
+          repository: Gelaende51/obsidian-plugin-template
+          token: ${{ secrets.TEMPLATE_READ_TOKEN }}
+          path: template
+
+      - name: Compare the shared tooling
+        run: |
+          status=0
+          for path in scripts .dev/cdp.mjs .dev/cdpSession.mjs .dev/restart-obsidian.sh \
+                      .dev/screenshots.mjs .dev/usage-stats.mjs \
+                      esbuild.config.mjs eslint.config.mjs tsconfig.json STYLE.md; do
+            # init.mjs is removed by init itself, so it is expected to be absent here.
+            if ! diff -r --exclude=init.mjs "template/$path" "reference/$path" > /tmp/d 2>&1; then
+              echo "::warning::$path differs from the template"
+              cat /tmp/d
+              status=1
+            fi
+          done
+          exit $status

@@ -1,0 +1,13 @@
+{
+	"id": "note-stats",
+	"name": "Note Stats",
+	"version": "0.1.0",
+	"minAppVersion": "1.7.2",
+	"description": "Counts words in the active note, and lists the vault's longest notes in a side panel.",
+	"author": "Vault51",
+	"authorUrl": "https://github.com/Gelaende51",
+	"fundingUrl": {
+		"Ko-fi": "https://ko-fi.com/vault51"
+	},
+	"isDesktopOnly": false
+}
