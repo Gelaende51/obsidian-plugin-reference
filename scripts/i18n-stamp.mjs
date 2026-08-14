@@ -32,8 +32,15 @@ const available = existsSync(i18n)
 
 // Either the placeholder or an already-stamped line, so a language added later
 // updates every file rather than only the fresh ones.
-const PATTERN =
-	/^(?:\{\{SELECTOR\}\}|\*\*[^*\n]+\*\* (?:\[[^\]]*\]\([^)]*\)|\*\*[^*\n]+\*\*)(?: · (?:\[[^\]]*\]\([^)]*\)|\*\*[^*\n]+\*\*))*)\n\n/m;
+// An item is a link to another language, or the current language in bold. The
+// middle alternative is the old shape, which carried a translated "Read this in
+// other languages:" label; keeping it here means a document written before the
+// label was dropped is re-stamped rather than silently skipped.
+const ITEM = String.raw`(?:\[[^\]]*\]\([^)]*\)|\*\*[^*\n]+\*\*)`;
+const PATTERN = new RegExp(
+	String.raw`^(?:\{\{SELECTOR\}\}|\*\*[^*\n]+\*\* ${ITEM}(?: · ${ITEM})*|${ITEM}(?: · ${ITEM})+)\n\n`,
+	"m",
+);
 
 const targets = [
 	["README.md", "README", "en"],

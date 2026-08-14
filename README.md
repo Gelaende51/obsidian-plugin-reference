@@ -1,4 +1,4 @@
-**Read this in other languages:** **English** · [Deutsch](docs/i18n/README.de.md)
+**English** · [Deutsch](docs/i18n/README.de.md)
 
 # Note Stats
 

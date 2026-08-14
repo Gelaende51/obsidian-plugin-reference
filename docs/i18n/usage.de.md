@@ -3,7 +3,7 @@
      from src/lang/translations.ts; Obsidian's own labels come from the app's
      shipped strings (npm run labels), not from a guess. -->
 
-**Diese Datei in anderen Sprachen lesen:** [English](../usage.md) · **Deutsch**
+[English](../usage.md) · **Deutsch**
 
 # Usage
 

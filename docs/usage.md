@@ -1,4 +1,4 @@
-**Read this in other languages:** **English** · [Deutsch](i18n/usage.de.md)
+**English** · [Deutsch](i18n/usage.de.md)
 
 # Usage
 

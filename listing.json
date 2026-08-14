@@ -1,0 +1,4 @@
+{
+	"_": "What community.obsidian.md shows about this plugin that manifest.json has no field for. Not shipped, never read by Obsidian. `npm run check:listing` validates it; the template's docs/listing.md describes every field the form offers. This plugin is a reference and is not published, so nothing is set.",
+	"tags": []
+}
