@@ -1,0 +1,15 @@
+{
+	"$schema": "./node_modules/development-template/schema/devkit.config.schema.json",
+	"id": "note-stats",
+	"name": "Note Stats",
+	"repository": "Gelaende51/obsidian-plugin-reference",
+	"locales": ["en"],
+	"suites": ["test-panel"],
+	"obsidian": {
+		"neighbours": [],
+		"suitePlugins": {},
+		"keepEnabled": [],
+		"testVault": ".dev/test-vault"
+	},
+	"environments": {}
+}

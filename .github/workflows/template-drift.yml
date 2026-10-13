@@ -1,6 +1,8 @@
 # This repository is the template's integration test.
 #
-# The scripts and harness here are copies of the template's. A copy with no
+# The scripts and harness here are copies of the template's, and the toolkit
+# packages (development-template, electron-template, obsidian-toolkit) the
+# same versions. A copy with no
 # users rots quietly — the whole risk of keeping a reference plugin around. So
 # CI diffs them against the template and fails when they drift, which turns
 # "the reference still works" from a hope into a check.
@@ -40,7 +42,8 @@ jobs:
         run: |
           status=0
           for path in scripts .dev/cdp.mjs .dev/cdpSession.mjs .dev/restart-obsidian.sh \
-                      .dev/screenshots.mjs .dev/usage-stats.mjs \
+                      .dev/screenshots.mjs .dev/usage-stats.mjs .dev/ci-run.sh .dev/ci-suites.sh \
+                      .github/workflows/test.yml .npmrc \
                       esbuild.config.mjs eslint.config.mjs tsconfig.json STYLE.md; do
             # init.mjs is removed by init itself, so it is expected to be absent here.
             if ! diff -r --exclude=init.mjs "template/$path" "reference/$path" > /tmp/d 2>&1; then
@@ -48,5 +51,12 @@ jobs:
               cat /tmp/d
               status=1
             fi
+          done
+          # The toolkit is shared by version, not by copy: the same three
+          # packages at the same tags.
+          for pkg in development-template electron-template obsidian-toolkit; do
+            t=$(jq -r --arg p "$pkg" '.devDependencies[$p] // "none"' template/package.json)
+            r=$(jq -r --arg p "$pkg" '.devDependencies[$p] // "none"' reference/package.json)
+            if [ "$t" != "$r" ]; then echo "::warning::$pkg: template $t, reference $r"; status=1; fi
           done
           exit $status

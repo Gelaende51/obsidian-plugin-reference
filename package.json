@@ -8,6 +8,7 @@
 		"build": "tsc -noEmit -skipLibCheck && npm run lint && npm run check:lang && npm run check:listing && npm run test && node esbuild.config.mjs production",
 		"test": "node .dev/test-word-count.mjs",
 		"test:live": "node .dev/test-panel.mjs && node .dev/test-harness.mjs",
+		"test:ci": "bash .dev/ci-run.sh test-panel",
 		"lint": "eslint src",
 		"check:lang": "node scripts/check-translations.mjs",
 		"check:minapp": "node scripts/check-minapp.mjs",
@@ -24,10 +25,13 @@
 	},
 	"license": "AGPL-3.0-only",
 	"devDependencies": {
+		"development-template": "https://codeload.github.com/Gelaende51/development-template/tar.gz/refs/tags/v1.2.0",
+		"electron-template": "https://codeload.github.com/Gelaende51/electron-template/tar.gz/refs/tags/v0.14.0",
 		"esbuild": "^0.25.0",
 		"eslint": "^9.39.0",
 		"eslint-plugin-obsidianmd": "^0.4.1",
 		"obsidian": "latest",
+		"obsidian-toolkit": "https://codeload.github.com/Gelaende51/obsidian-toolkit/tar.gz/refs/tags/v0.8.0",
 		"tslib": "^2.6.0",
 		"typescript": "^5.4.0",
 		"typescript-eslint": "^8.67.0"
