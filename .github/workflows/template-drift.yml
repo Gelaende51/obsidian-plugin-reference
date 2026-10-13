@@ -35,7 +35,6 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: Gelaende51/obsidian-plugin-template
-          token: ${{ secrets.TEMPLATE_READ_TOKEN }}
           path: template
 
       - name: Compare the shared tooling
