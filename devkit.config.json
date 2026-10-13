@@ -3,8 +3,13 @@
 	"id": "note-stats",
 	"name": "Note Stats",
 	"repository": "Gelaende51/obsidian-plugin-reference",
-	"locales": ["en"],
-	"suites": ["test-panel"],
+	"locales": [
+		"en"
+	],
+	"suites": [
+		"test-panel",
+		"test-word-count"
+	],
 	"obsidian": {
 		"neighbours": [],
 		"suitePlugins": {},
