@@ -47,6 +47,9 @@ const OUT = `${root}docs/images`;
  */
 const SCENES = {
 	hero: {
+		// The name of the vault in .personal/, which is what the harness matches
+		// the window title against. Keep it distinctive: two windows both called
+		// "vault" are two windows the harness will refuse to choose between.
 		vault: "Demo",
 		note: "Welcome.md",
 		before: `

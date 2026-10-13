@@ -110,18 +110,22 @@ try {
 	console.log("\nteardown");
 	// Not detachLeavesOfType: Obsidian discards a view whose type nobody
 	// registers, and detaching would throw away where the user put the leaf.
+	// The leaf itself may stay, holding the type for when the plugin returns;
+	// what must go is the plugin's view in it.
 	const afterUnload = await page.evaluate(`
 		await app.plugins.disablePlugin(${JSON.stringify(ID)});
 		${PAUSE(400)}
 		return {
-			leaves: app.workspace.getLeavesOfType(${JSON.stringify(VIEW)}).length,
+			panels: document.querySelectorAll(".note-stats-panel").length,
+			leaves: app.workspace.getLeavesOfType(${JSON.stringify(VIEW)}).map((l) => l.view?.constructor?.name ?? "none"),
 			statusBar: document.querySelectorAll(".note-stats-status").length,
 			ribbon: document.querySelectorAll(".note-stats-ribbon").length,
 		};
 	`);
+	if (afterUnload.leaves.length) console.log(`  (leaves of the type left: ${afterUnload.leaves.join(", ")})`);
 	expect("no status bar item left behind", afterUnload.statusBar, 0);
 	expect("no ribbon icon left behind", afterUnload.ribbon, 0);
-	expect("no live panel left behind", afterUnload.leaves, 0);
+	expect("no live panel left behind", afterUnload.panels, 0);
 	await page.evaluate(`await app.plugins.enablePlugin(${JSON.stringify(ID)}); ${PAUSE(400)} return true;`);
 } finally {
 	// Unconditional: a test that throws never reaches its own cleanup, and the

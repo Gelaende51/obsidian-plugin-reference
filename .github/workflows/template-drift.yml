@@ -37,6 +37,14 @@ jobs:
           repository: Gelaende51/obsidian-plugin-template
           path: template
 
+      # init renames the template's placeholder prefix to the plugin's id in
+      # every file; do the same to the template's copy, or each example in a
+      # comment reads as drift.
+      - name: Rename the template's placeholder as init does
+        run: |
+          id=$(jq -r .id reference/manifest.json)
+          grep -rlZ --exclude-dir=.git my-plugin template | xargs -0 -r sed -i "s/my-plugin/$id/g"
+
       - name: Compare the shared tooling
         run: |
           status=0
